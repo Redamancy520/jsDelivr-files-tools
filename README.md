@@ -8,4 +8,5 @@ help download jsDelivr file and change others' cdn url to own url (快速下载�
 
 ## 说明
 > 该程序本来是我用来修改hexo博客文件中指向其他jsDelivr仓库的cdn链接改为我的，所以有地方需要你自己修改适配
+> 
 > 本人高中生,python新手 有bug请见谅 发issue反馈即可
