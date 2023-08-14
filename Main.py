@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 
@@ -71,13 +72,9 @@ def import_url(base: str, cdn: str):
         urls = find_url(file_str)
         if urls.count != 0:
             for url in urls:
-
-                if (url.find("jsdelivr") != -1 and  # 判断是否为cdn的url
-                        url != "" and
-                        url.find(cdn) == -1 and  # 判断是否为自己cdn的url 不是则继续
-                        url.find("https://img1.imgtp.com/2023/08/12/z5s15lgH.png") == -1):  # 这段可以删,这个是针对我自己的库
-                    if url.endswith(".css") == 1:  # 指定文件类型 .css 也可以不指定 建议和下方保持一致
-                        url = clean_waste(url)  # 处理URL
+                if url.find("jsdelivr") != -1 and url != "" and url.find(cdn) == -1 and url.find("https://img1.imgtp.com/2023/08/12/z5s15lgH.png") == -1:  # 这段可以删,这个是针对我自己的库
+                    url = clean_waste(url)  # 处理URL
+                    if url.endswith(".css"):  # 指定文件类型 .css 也可以不指定 建议和下方保持一致
                         with open("list.txt", "a") as j:
                             print("list add:" + url)
                             j.write(url + "\r\n")  # 将url写入到list.txt中
@@ -95,23 +92,24 @@ def replace_url(cdn_self, base):
     :return:
     """
     files = findAllFile(base)
-
     for f in files:
         file_str = read_file(f)
         urls = find_url(file_str)
         if urls.count != 0:
             for url in urls:
                 # 判断是否为cdn的url
-                if (url.find("jsdelivr") != -1 and
-                        url != "" and
-                        url.find(cdn_self) == -1 and  # 判断是否为自己cdn的url 不是则继续
-                        url.find("https://img1.imgtp.com/2023/08/12/z5s15lgH.png") == -1):
-                    if url.find(".css") != -1:  # 指定文件类型 .css 也可以不指定 建议和上方保持一致
+                if url.find("jsdelivr") != -1 and url != "" and url.find(cdn_self) == -1 and url.find("https://img1.imgtp.com/2023/08/12/z5s15lgH.png") == -1:
+                    url = clean_waste(url)  # 处理URL
+                    #print(url)
+                    if url.endswith(".css"):  # 指定文件类型 .css 也可以不指定 建议和上方保持一致
+                        print(url)
                         file_str = file_str.replace(url,
                                                     url.replace("https://cdn.jsdelivr.net/", cdn_self))  # 替换为你自己的CDN仓库
                         with open(f, "w", encoding="utf-8") as j:
                             j.write(file_str)
-                            print("replace file:" + f)
+                            logging.getLogger("replace.log").info("replace file:" + f)
+                            #print("replace file:" + f)
+                            j.close()
 
 
 if __name__ == '__main__':
