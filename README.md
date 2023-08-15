@@ -7,9 +7,9 @@ help download jsDelivr file and change others' cdn url to own url (快速下载�
 3. 在同目录下打开cmd,输入 `python Main.py`
 
 ## 功能
-1. 获取指定目录中所有的jsDelivr cdn链接
-2. 下载指定目录中所有的jsDelivr cdn链接
-3. 替换指定目录中所有的jsDelivr cdn链接为自己cdn仓库链接
+1. 获取指定目录中所有的文件中的jsDelivr链接 保存为list.txt
+2. 支持jsDelivr文件批量下载 (读取list.txt)
+3. 替换指定目录中所有文件中的jsDelivr链接为自己cdn仓库链接
    
 ## 说明
 > 该程序本来是我用来修改hexo博客文件中指向其他jsDelivr仓库的cdn链接改为我的，所以有地方需要你自己修改适配
